@@ -5,6 +5,7 @@
     Product
 </h2>
 <div class="mb-5 flex justify-end">
+    {{-- <a href="{{route('admin.product.archive')}}" class="uppercase dark:text-white bg-blue-500 rounded-md p-2 hover:bg-blue-700">Archive</a> --}}
     <a href="{{route('admin.product.create')}}" class="uppercase dark:text-white bg-blue-500 rounded-md p-2 hover:bg-blue-700">Create</a>
 </div>
 <div class="relative overflow-x-auto rounded-md">
@@ -29,26 +30,28 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($products as $product)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex flex-row">
+                    <img src="{{'/storage/products/'.$product->image}}" class="w-12 mr-2 object-cover rounded-sm" alt="image" srcset="">
+                    {{$product->name}}
                 </th>
                 <td class="px-6 py-4">
-                    Silver
+                    {{$product->quantity}}
                 </td>
                 <td class="px-6 py-4">
-                    Laptop
+                    {{$product->category->name}}
                 </td>
                 <td class="px-6 py-4">
-                    $2999
+                    {{$product->price}}
                 </td>
                 <td class="px-6 py-4">
-                    <a href="#" class="bg-yellow-300 hover:bg-yellow-500 rounded-md p-2">Update</a>
+                    <a href="{{route('admin.product.edit', $product->id)}}" class="bg-yellow-300 hover:bg-yellow-500 rounded-md p-2">Update</a>
                     <a href="#" class="bg-red-600 hover:bg-red-700 rounded-md p-2">Delete</a>
-                    <a href="#" class="bg-blue-500 hover:bg-blue-600 rounded-md p-2 text-white">See More</a>
+                    <a href="{{route('admin.product.show', $product->id)}}" class="bg-blue-500 hover:bg-blue-600 rounded-md p-2 text-white">See More</a>
                 </td>
             </tr>
-
+            @endforeach
         </tbody>
     </table>
 </div>

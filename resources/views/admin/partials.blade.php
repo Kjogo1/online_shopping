@@ -153,6 +153,11 @@
         </aside>
 
         <div class="p-4 sm:ml-64">
+            @if($success = Session::get('success'))
+            <div class="bg-green-500 text-white rounded-md p-2">
+                <p>{{ $success }}</p>
+            </div>
+            @endif
             @yield('content')
 
         </div>
