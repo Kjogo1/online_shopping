@@ -73,63 +73,39 @@
                     class="{{ request()->segment('3') == $category->id ? 'text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800' : ' text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 dark:text-white dark:focus:ring-gray-800' }}">{{ $category->name }}</a>
             @endforeach
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="">
-                    <div class="mx-2">
-                        <span class="text-gray-800 dark:text-white block text-lg">Title</span>
-                        <div class="flex md:flex-row justify-between flex-col">
-                            <span class="text-gray-800 dark:text-white text-sm md:text-md">price</span>
-                        <span class="text-gray-800 dark:text-white text-sm md:text-md">quantity</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            @foreach ($products as $product)
+                {{-- <a href="{{ route('product.show', $product->id) }}"> --}}
+                    <div
+                        class="hover:scale-125 transition delay-150 duration-300 ease-in-out pb-2 rounded-lg shadow bg-white border border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img class="h-auto max-w-full rounded-lg"
+                            src="{{'/storage/products/'.$product->image}}" alt="">
+                        <div class="mx-2">
+                            <span
+                                class="text-gray-800 dark:text-white block text-lg overflow-hidden whitespace-nowrap">{{$product->name}}</span>
+                            <div class="flex md:flex-row justify-between flex-col mt-1">
+                                <span class="text-gray-800 dark:text-white text-sm md:text-md">Price: ${{$product->price}}</span>
+                                <span class="text-gray-800 dark:text-white text-sm md:text-md">Quantity: {{$product->quantity}}</span>
+                            </div>
+                            <div class="flex flex-row items-center justify-between mt-2">
+                                <div>
+                                    <button class="bg-blue-500 rounded-md p-2 hover:bg-blue-600">
+                                        <img src="{{ asset('assets/image/outlet_favorite.svg') }}">
+                                    </button>
+                                    <button class="bg-blue-500 rounded-md p-2 w-10 hover:bg-blue-600">
+                                        <img src="{{ asset('assets/image/cart_outlet.png') }}">
+                                    </button>
+                                </div>
+                                <a href="{{ route('product.show', $product->id) }}" class="text-gray-800 dark:text-white bg-orange-600 hover:bg-orange-700 rounded-md p-2">
+                                    See More
+                                </a>
+                            </div>
                         </div>
                     </div>
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg" alt="">
-            </div>
-            <div>
-                <img class="h-auto max-w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg" alt="">
-            </div>
+                {{-- </a> --}}
+            @endforeach
         </div>
+
 
     </div>
 @endsection

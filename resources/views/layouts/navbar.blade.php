@@ -53,8 +53,8 @@
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                         @auth
                             <li>
-                                <a href="{{ url('/dashboard') }}"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"></a>
                             </li>
 
                             <x-dropdown-link :href="route('profile.edit')">

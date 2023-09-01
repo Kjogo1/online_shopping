@@ -15,8 +15,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $categories = DB::select('select * from categories');
-        return view('user.product.index', ['categories' => $categories]);
+        // $categories = DB::select('select * from categories');
+        // return view('user.product.index', ['categories' => $categories]);
     }
 
     /**
@@ -41,6 +41,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        return view('user.category.show', compact('product'));
     }
 
     /**

@@ -4,8 +4,8 @@
 <h2 class="text-gray-700 uppercase bg-gray-100 dark:bg-gray-900 dark:text-gray-400 text-2xl mb-5">
     Product
 </h2>
-<div class="mb-5 flex justify-end">
-    {{-- <a href="{{route('admin.product.archive')}}" class="uppercase dark:text-white bg-blue-500 rounded-md p-2 hover:bg-blue-700">Archive</a> --}}
+<div class="mb-5 flex justify-between">
+    <a href="#" class="uppercase dark:text-white bg-orange-600 rounded-md p-2 hover:bg-orange-700">Archive</a>
     <a href="{{route('admin.product.create')}}" class="uppercase dark:text-white bg-blue-500 rounded-md p-2 hover:bg-blue-700">Create</a>
 </div>
 <div class="relative overflow-x-auto rounded-md">

@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route::get('/product', [ControllersProductController::class, 'index'])->name('product.index');
+Route::get('/product/{product}', [ControllersProductController::class, 'show'])->name('product.show');
 Route::get('product/category/{category}', [ControllersCategoryController::class, 'index'])->name('category.index');
 
 // Route::get('/dashboard', function () {
