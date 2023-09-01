@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,6 +15,8 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $categories = DB::select('select * from categories');
+        return view('user.product.index', ['categories' => $categories]);
     }
 
     /**

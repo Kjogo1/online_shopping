@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CategoryController as ControllersCategoryController;
+use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// user
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// Route::get('/product', [ControllersProductController::class, 'index'])->name('product.index');
+Route::get('product/category/{category}', [ControllersCategoryController::class, 'index'])->name('category.index');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
