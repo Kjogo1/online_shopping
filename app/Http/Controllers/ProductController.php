@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use Illuminate\Support\Facades\DB;
+use App\Models\Cart;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class ProductController extends Controller
 {
@@ -66,5 +69,24 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function addToCart(Request $request, string $id) {
+        $product = Product::findOrFail($id);
+        $oldCart = $request->session()->has('cart') ? $request->session()->get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->add($product, $product->id);
+        $request->session()->put('cart', $cart);
+        // dd($request->session()->get('cart'));
+        return redirect()->back();
+    }
+
+    public function getCart(Request $request) {
+        if(!$request->session()->has('cart')) {
+            return view('user.cart.index');
+        }
+        $oldCart = $request->session()->get('cart');
+        $cart = new Cart($oldCart);
+        return view('user.cart.index', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 }

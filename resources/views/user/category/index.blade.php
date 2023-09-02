@@ -77,7 +77,7 @@
             @foreach ($products as $product)
                 {{-- <a href="{{ route('product.show', $product->id) }}"> --}}
                     <div
-                        class="hover:scale-125 transition delay-150 duration-300 ease-in-out pb-2 rounded-lg shadow bg-white border border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        class="md:hover:scale-105 hover:scale-110 transition delay-150 duration-300 ease-in-out pb-2 rounded-lg shadow bg-white border border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                         <img class="h-auto max-w-full rounded-lg"
                             src="{{'/storage/products/'.$product->image}}" alt="">
                         <div class="mx-2">
@@ -92,9 +92,13 @@
                                     <button class="bg-blue-500 rounded-md p-2 hover:bg-blue-600">
                                         <img src="{{ asset('assets/image/outlet_favorite.svg') }}">
                                     </button>
-                                    <button class="bg-blue-500 rounded-md p-2 w-10 hover:bg-blue-600">
-                                        <img src="{{ asset('assets/image/cart_outlet.png') }}">
-                                    </button>
+                                    <form action="{{route('product.cart', $product->id)}}" method="POST" class="inline">
+                                        @csrf
+                                        @method('GET')
+                                        <button class="bg-blue-500 rounded-md p-2  w-10 hover:bg-blue-600" type="submit">
+                                            <img src="{{ asset('assets/image/cart_outlet.png') }}">
+                                        </button>
+                                    </form>
                                 </div>
                                 <a href="{{ route('product.show', $product->id) }}" class="text-gray-800 dark:text-white bg-orange-600 hover:bg-orange-700 rounded-md p-2">
                                     See More

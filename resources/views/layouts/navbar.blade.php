@@ -26,18 +26,29 @@
                     <a href="#"
                         class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
                 </li>
-                <li class="dark:bg-gray-800">
+                {{-- <li class="dark:bg-gray-800">
                     <a href="#"
                         class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-                </li>
+
+                </li> --}}
                 <li class="dark:bg-gray-800">
                     <a href="{{ route('category.index', 1) }}"
                         class="{{ request()->routeIs('category.index') ? 'block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500' : 'block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent' }}">
                         Products
                     </a>
+                </li>
                 <li class="dark:bg-gray-800">
                     <a href="#"
                         class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                </li>
+
+                <li class="dark:bg-gray-800">
+                    <a href="{{ route('product.shopping.cart') }}"
+                        class="relative py-2 pl-3 pr-4 flex flew-row text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                        <img src="{{asset('assets/image/cart_outlet.png')}}" class="w-5 mr-1">
+                        <span>Cart</span>
+                        <div class="{{Session::has('cart') ? 'absolute animate-bounce ease-in-out inline-flex items-center justify-center md:-right-6 w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900' : ''}}">{{Session::has('cart') ? Session::get('cart')->totalQty : ''}}</div>
+                    </a>
                 </li>
 
                 <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
@@ -54,7 +65,7 @@
                         @auth
                             <li>
                                 <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"></a>
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">History Order</a>
                             </li>
 
                             <x-dropdown-link :href="route('profile.edit')">

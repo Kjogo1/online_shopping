@@ -23,12 +23,18 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/product/shopping-cart', [ControllersProductController::class, 'getCart'])->name('product.shopping.cart');
 Route::get('/product/{product}', [ControllersProductController::class, 'show'])->name('product.show');
+Route::get('/product/cart/{product}', [ControllersProductController::class, 'addToCart'])->name('product.cart');
 Route::get('product/category/{category}', [ControllersCategoryController::class, 'index'])->name('category.index');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+// order table
+// userId, productId, cart, favorite, quantity
+// invoice table
+// productId, userId, quantity
 
 Route::middleware(['auth', 'verified', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
