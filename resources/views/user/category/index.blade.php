@@ -85,7 +85,7 @@
                                 class="text-gray-800 dark:text-white block text-lg overflow-hidden whitespace-nowrap">{{$product->name}}</span>
                             <div class="flex md:flex-row justify-between flex-col mt-1">
                                 <span class="text-gray-800 dark:text-white text-sm md:text-md">Price: ${{$product->price}}</span>
-                                <span class="text-gray-800 dark:text-white text-sm md:text-md">Quantity: {{$product->quantity}}</span>
+                                {{-- <span class="text-gray-800 dark:text-white text-sm md:text-md">Quantity: {{$product->quantity}}</span> --}}
                             </div>
                             <div class="flex flex-row items-center justify-between mt-2">
                                 <div>

@@ -24,8 +24,13 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/product/shopping-cart', [ControllersProductController::class, 'getCart'])->name('product.shopping.cart');
+Route::get('/product/checkout', [ControllersProductController::class, 'checkoutView'])->name('product.checkout.index')->middleware(['auth', 'role:user']);
+Route::get('/product/checkout/{checkout}', [ControllersProductController::class, 'checkoutShow'])->name('product.checkout.show')->middleware(['auth', 'role:user']);
 Route::get('/product/{product}', [ControllersProductController::class, 'show'])->name('product.show');
 Route::get('/product/cart/{product}', [ControllersProductController::class, 'addToCart'])->name('product.cart');
+Route::post('/product/checkout/checkout-type', [ControllersProductController::class, 'checkoutType'])->name('product.checkout.type')->middleware(['auth', 'role:user']);
+Route::post('/product/checkout/cash', [ControllersProductController::class, 'cashSingleProduct'])->name('product,checkout.single.cash')->middleware(['auth', 'role:user']);
+
 Route::get('product/category/{category}', [ControllersCategoryController::class, 'index'])->name('category.index');
 
 // Route::get('/dashboard', function () {

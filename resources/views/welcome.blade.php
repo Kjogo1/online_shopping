@@ -42,10 +42,12 @@
         @-webkit-keyframes move {
             0% {
                 margin-left: 0px;
+                /* transform: translateX(-1000px); */
             }
 
             100% {
                 margin-left: -790px;
+                /* transform: translateX(1000px); */
             }
         }
 
