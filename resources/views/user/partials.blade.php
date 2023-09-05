@@ -34,6 +34,12 @@
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900">
+    @if($success = Session::get('success'))
+    <div class="bg-green-500 text-white rounded-md p-2">
+        <p>{{ $success }}</p>
+    </div>
+    @endif
+    
     @include('layouts.navbar')
     @yield('content')
     @include('layouts.footer')

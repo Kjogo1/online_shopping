@@ -36,4 +36,9 @@ class Cart extends Model
         $this->totalQty++;
         $this->totalPrice += $item->price;
     }
+
+    public function updateItem($qty, $price) {
+        $this->totalPrice = $price;
+        $this->totalQty = $qty;
+    }
 }

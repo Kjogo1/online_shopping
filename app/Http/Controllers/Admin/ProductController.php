@@ -45,7 +45,8 @@ class ProductController extends Controller
             'category_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'price' => ['required', 'numeric', new GreaterThanZeroRule],
-            'quantity' => ['required', 'numeric', new GreaterThanZeroRule]
+            'quantity' => ['required', 'numeric', new GreaterThanZeroRule],
+            'startup_price' => ['required', 'numeric', new GreaterThanZeroRule]
         ]);
 
         // dd($validate->errors());
@@ -71,7 +72,8 @@ class ProductController extends Controller
             'uuid' => $request->uuid,
             'image' => $imageFile,
             'price' => $request->price,
-            'quantity' => $request->quantity
+            'quantity' => $request->quantity,
+            'startup_price' => $request->startup_price,
         ]);
 
         return redirect()->route('admin.product.index')->with('success', 'You created product successfully.');
@@ -112,7 +114,8 @@ class ProductController extends Controller
                 'category_id' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
                 'price' => ['required', 'numeric', new GreaterThanZeroRule],
-                'quantity' => ['required', 'numeric', new GreaterThanZeroRule]
+                'quantity' => ['required', 'numeric', new GreaterThanZeroRule],
+                'startup_price' => ['required', 'numeric', new GreaterThanZeroRule]
             ]);
         } else {
             $validate = Validator::make($request->all(), [
@@ -121,7 +124,8 @@ class ProductController extends Controller
                 'category_id' => 'required',
                 // 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
                 'price' => ['required', 'numeric', new GreaterThanZeroRule],
-                'quantity' => ['required', 'numeric', new GreaterThanZeroRule]
+                'quantity' => ['required', 'numeric', new GreaterThanZeroRule],
+                'startup_price' => ['required', 'numeric', new GreaterThanZeroRule]
             ]);
         }
 
@@ -148,7 +152,8 @@ class ProductController extends Controller
             'uuid' => $request->uuid,
             'image' => $imageFile,
             'price' => $request->price,
-            'quantity' => $request->quantity
+            'quantity' => $request->quantity,
+            'startup_price' => $request->startup_price,
         ]);
 
         return redirect()->route('admin.product.index')->with('success', 'Updated Product Success');

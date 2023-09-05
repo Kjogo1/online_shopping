@@ -18,7 +18,8 @@ class Product extends Model
         'description',
         'quantity',
         'image',
-        'uuid'
+        'uuid',
+        'startup_price'
     ];
 
     public function category(): BelongsTo {

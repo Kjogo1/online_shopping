@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('image');
             $table->double('quantity');
+            $table->double('startup_price');
             $table->double('price');
             $table->softDeletes();
             $table->timestamps();

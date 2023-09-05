@@ -99,10 +99,13 @@ class ProductController extends Controller
         }
         $oldCart = $request->session()->get('cart');
         $cart = new Cart($oldCart);
-        // foreach($cart->items as $product => $val){
-        //     dd($product);
+        // foreach($cart->items as $key => $val){
+        //     var_dump($key);
         //     // value cart
         // }
+        // dd($cart->totalPrice);
+        // dd($cart->totalQty);
+        // dd($cart->items[2]['qty']);
         return view('user.cart.index', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
@@ -135,16 +138,16 @@ class ProductController extends Controller
             $cart = new Cart($oldCart);
 
             if ($request->payment_type === 'Cash') {
-                return view('user.product.payment-type.cash', ['product_id' => null, 'product' => $cart]);
+                return view('user.product.payment-type.cash', ['product_id' => null, 'product' => $cart->items, 'totalPrice' => $cart->totalPrice]);
             } else {
-                return view('user.product.payment-type.paypal', ['product_id' => null, 'product' => $cart]);
+                return view('user.product.payment-type.paypal', ['product_id' => null, 'product' => $cart->items, 'totalPrice' => $cart->totalPrice]);
             }
         } else {
             $oldCart = $request->session()->get('cart');
             $cart = new Cart($oldCart);
 
             foreach ($cart->items as $key => $val) {
-                if($key == $request->product_id) {
+                if ($key == $request->product_id) {
                     $product = $val;
                 }
             }
@@ -157,7 +160,8 @@ class ProductController extends Controller
         }
     }
 
-    public function cashSingleProduct(Request $request) {
+    public function cashSingleProduct(Request $request)
+    {
         $validate = Validator::make($request->all(), [
             'product_id' => 'required',
             'quantity' => 'required|numeric',
@@ -165,7 +169,7 @@ class ProductController extends Controller
             'payment_type' => 'required'
         ]);
 
-        if($validate->fails()) {
+        if ($validate->fails()) {
             return redirect()->route('product.shopping.cart');
         }
 
@@ -178,7 +182,45 @@ class ProductController extends Controller
             'payment_type' => $request->payment_type,
             'payment_id' => Str::uuid(),
         ]);
+        $cart = $request->session()->get('cart');
 
+        foreach ($cart->items as $key => $val) {
+            if ($key == $request->product_id) {
+                // $product = $key;
+                $totalPrice = $cart->totalPrice - $cart->items[$key]['price'];     // dd($cart->items[2]['qty']);
+                $totalQty = $cart->totalQty - $cart->items[$key]['qty'];
+                $cart->updateItem($totalQty, $totalPrice);
+                unset($cart->items[$key]); // retrieving the value and remove it from the array
+                break;
+            }
+        }
+
+        // $request->session()->forget('cart');
+
+        return redirect()->route('product.shopping.cart')->with('success', 'Your Product has been order');
+    }
+
+    public function CashProduct(Request $request)
+    {
+        if (!$request->session()->has('cart')) {
+            return redirect()->route('product.shopping.cart');
+        }
+
+        $oldCart = $request->session()->get('cart');
+        $cart = new Cart($oldCart);
+
+        foreach ($cart->items as $product) {
+            auth()->user()->orderProduct()->create([
+                'product_id' => $product['item']->id,
+                'quantity' => $product['qty'],
+                'price' => $product['price'],
+                'payment_type' => 'Cash',
+                'payment_id' => Str::uuid(),
+            ]);
+            // var_dump($product['item']->id);
+        }
+
+        $request->session()->forget('cart');
         return redirect()->route('product.shopping.cart')->with('success', 'Your Product has been order');
     }
 }

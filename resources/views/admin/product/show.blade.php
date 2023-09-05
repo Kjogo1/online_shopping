@@ -27,6 +27,8 @@
         <div class="flex flex-col justify-between p-4">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $product->name }}</h5>
             {{-- <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $product->description }}</p> --}}
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Startup Price: ${{ $product->startup_price }}</p>
+
             <div class="flex flex-row justify-between">
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Quantity: {{ $product->quantity }}</p>
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Price: ${{ $product->price }}</p>

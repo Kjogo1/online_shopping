@@ -22,6 +22,9 @@
                     Category
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Startup Price
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Price
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -31,11 +34,16 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex flex-row">
-                    <img src="{{'/storage/products/'.$product->image}}" class="w-12 mr-2 object-cover rounded-sm" alt="image" srcset="">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 w-fit">
+                <td class="md:px-6 md:py-4 flex md:flex-row flex-col">
+                    <img src="{{'/storage/products/'.$product->image}}" class="w-15 md:w-12 mr-2 object-cover rounded-sm" alt="image" srcset="">
+                    <span class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
+                        {{$product->name}}
+                    </span>
+                </td>
+                {{-- <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" >
                     {{$product->name}}
-                </th>
+                </td> --}}
                 <td class="px-6 py-4">
                     {{$product->quantity}}
                 </td>
@@ -43,12 +51,21 @@
                     {{$product->category->name}}
                 </td>
                 <td class="px-6 py-4">
-                    {{$product->price}}
+                    ${{$product->startup_price}}
                 </td>
                 <td class="px-6 py-4">
-                    <a href="{{route('admin.product.edit', $product->id)}}" class="bg-yellow-300 hover:bg-yellow-500 rounded-md p-2">Update</a>
-                    <a href="#" class="bg-red-600 hover:bg-red-700 rounded-md p-2">Delete</a>
-                    <a href="{{route('admin.product.show', $product->id)}}" class="bg-blue-500 hover:bg-blue-600 rounded-md p-2 text-white">See More</a>
+                    ${{$product->price}}
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex flex-row items-center justify-between">
+                        <a href="{{route('admin.product.edit', $product->id)}}" class="bg-yellow-300 hover:bg-yellow-500 rounded-md p-2">Update</a>
+                        <form action="{{route('admin.product.destroy', $product->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 rounded-md p-2">Delete</button>
+                        </form>
+                        <a href="{{route('admin.product.show', $product->id)}}" class="bg-blue-500 hover:bg-blue-600 rounded-md p-2 text-white">See More</a>
+                    </div>
                 </td>
             </tr>
             @endforeach

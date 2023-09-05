@@ -1,6 +1,6 @@
 @extends('user.partials')
 @section('content')
-    <div class="text-gray-700 dark:text-gray-400 m-5 flex flex-row justify-center h-screen">
+    <div class="text-gray-700 dark:text-gray-400 m-5 flex flex-row justify-center min-h-screen">
         @if (Session::has('cart'))
             <div class="flex flex-col gap-4 mb-5 md:w-3/6">
                 @foreach ($products as $product)
