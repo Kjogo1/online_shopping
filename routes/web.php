@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CategoryController as ControllersCategoryController;
 use App\Http\Controllers\HistoryOrderController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\ProfileController;
@@ -30,9 +32,7 @@ use Illuminate\Support\Facades\Route;
 // filter product by date
 
 // user
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'welcome'])->name('home');
 
 Route::get('/product/history-order', [HistoryOrderController::class, 'index'])->name('product.history.order');
 
@@ -62,7 +62,15 @@ Route::get('product/category/{category}', [ControllersCategoryController::class,
 Route::middleware(['auth', 'verified', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('/product', ProductController::class);
+
+    // dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    // banner
     Route::resource('/banner', BannerController::class);
+    Route::post('/banner/product', [BannerController::class, 'product'])->name('banner.product');
+    Route::put('/banner/{banner}', [BannerController::class, 'update'])->name('banner.update');
+    Route::patch('/banner/{banner}', [BannerController::class, 'updateStatus'])->name('banner.updateStatus');
 });
 
 

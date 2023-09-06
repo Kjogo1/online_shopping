@@ -27,29 +27,31 @@
             scrollbar-width: none;
             /* Firefox */
 
-            -webkit-animation-name: move;
-            -webkit-animation-duration: 4s;
+            /* -webkit-animation-name: move;
+            -webkit-animation-duration: 5s;
             -webkit-animation-iteration-count: infinite;
             -webkit-animation-delay: 1s;
             -webkit-animation-direction: alternate;
-            -webkit-animation-timing-function: linear;
+            -webkit-animation-timing-function: linear; */
+            animation: move linear 7s infinite forwards;
+            -webkit-animation: move linear 7s infinite forwards;
         }
 
         .box:hover {
             -webkit-animation-play-state: paused;
         }
 
+
         @-webkit-keyframes move {
             0% {
                 margin-left: 0px;
-                /* transform: translateX(-1000px); */
             }
 
             100% {
-                margin-left: -790px;
-                /* transform: translateX(1000px); */
+                margin-left: -2000px;
             }
         }
+
 
         .scroll-child::-webkit-scrollbar {
             display: none;
@@ -122,8 +124,8 @@
 
     <div class="relative">
         <span
-            class="text-gray-800 dark:text-white absolute top-1/2 left-1/2 md:text-2xl font-semibold text-xl md:max-w-lg">Title</span>
-        <img src="{{ asset('assets/image/slide.png') }}" class="w-full h-56 md:h-fit object-cover">
+            class="text-gray-800 dark:text-white absolute top-1/2 left-1/2 md:text-2xl font-semibold text-xl md:max-w-lg">{{ $banner->title }}</span>
+        <img src="{{ asset('/storage/banner/' . $banner->image) }}" class="w-full h-56 md:h-fit object-cover">
     </div>
 
     <h2 class="text-gray-800 dark:text-white font-semibold md:text-3xl text-xl flex flex-row justify-center m-5">Our
@@ -131,62 +133,124 @@
 
 
     <div class=" flex items-center flex-row my-2 scroll-child box">
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/netflix.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Netflix</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/microsoft.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Microsoft</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/youtube.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Youtube</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/unilever.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">unilever</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/twitter.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">twitter</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/starbucks.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">starbucks</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/visa.svg') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Visa</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/tesla.svg') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Tesla</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/mastercard.svg') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">MasterCard</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/google.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Google</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/firebase.svg') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">FireBase</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/ebay.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Ebay</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/apple.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">Apple</span>
-        </span>
-        <span class="flex flex-row items-center mx-10">
-            <img src="{{ asset('assets/image/android.png') }}" class="w-10 object-cover">
-            <span class="uppercase text-gray-800 dark:text-white ml-1">android</span>
-        </span>
+        <div class="left flex items-center flex-row">
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/netflix.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Netflix</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/microsoft.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Microsoft</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/youtube.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Youtube</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/unilever.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">unilever</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/twitter.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">twitter</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/starbucks.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">starbucks</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/visa.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Visa</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/tesla.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Tesla</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/mastercard.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">MasterCard</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/google.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Google</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/firebase.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">FireBase</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/ebay.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Ebay</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/apple.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Apple</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/android.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">android</span>
+            </span>
+        </div>
+
+        <div class="right flex items-center flex-row">
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/netflix.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Netflix</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/microsoft.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Microsoft</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/youtube.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Youtube</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/unilever.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">unilever</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/twitter.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">twitter</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/starbucks.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">starbucks</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/visa.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Visa</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/tesla.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Tesla</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/mastercard.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">MasterCard</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/google.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Google</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/firebase.svg') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">FireBase</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/ebay.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Ebay</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/apple.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">Apple</span>
+            </span>
+            <span class="flex flex-row items-center mx-10">
+                <img src="{{ asset('assets/image/android.png') }}" class="w-10 object-cover">
+                <span class="uppercase text-gray-800 dark:text-white ml-1">android</span>
+            </span>
+        </div>
+
     </div>
 
     <div class="flex justify-center items-center maxheight flex-col">

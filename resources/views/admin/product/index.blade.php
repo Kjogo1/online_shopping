@@ -28,6 +28,12 @@
                     Price
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Add Product to Banner
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Add Product to slider
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Action
                 </th>
             </tr>
@@ -55,6 +61,26 @@
                 </td>
                 <td class="px-6 py-4">
                     ${{$product->price}}
+                </td>
+                <td class="px-6 py-4">
+                    <form method="POST" action="{{route('admin.banner.product')}}">
+                        @csrf
+                        @method("POST")
+                        <input hidden value="{{$product->id}}" name="product_id">
+                        <button class="dark:text-white bg-blue-500 rounded-md p-2 hover:bg-blue-700" type="submit">
+                            Add to Banner
+                        </button>
+                    </form>
+                </td>
+                <td class="px-6 py-4">
+                    <form method="POST" action="">
+                        @csrf
+                        @method("POST")
+                        <input hidden value="{{$product->id}}" name="product_id">
+                        <button class="dark:text-white bg-blue-500 rounded-md p-2 hover:bg-blue-700" type="submit">
+                            Add to Slideshow
+                        </button>
+                    </form>
                 </td>
                 <td class="px-6 py-4">
                     <div class="flex flex-row items-center justify-between">
