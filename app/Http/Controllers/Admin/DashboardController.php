@@ -19,7 +19,12 @@ class DashboardController extends Controller
         FROM order_products INNER JOIN products ON order_products.product_id = products.id');
 
         // $profit = $data[1]->price - ($data[1]->startup_price*$data[1]->quantity);
-        dd($data);
-        return view('admin.dashboard.index');
+
+        $profit = 0.0;
+        foreach($data as $val) {
+            $profit += $val->price - ($val->startup_price*$val->quantity);
+        }
+
+        return view('admin.dashboard.index', compact('profit'));
     }
 }

@@ -10,7 +10,7 @@
             Profit
         </h3>
         <div>
-            Amount: $100
+            Amount: ${{$profit}}
         </div>
     </div>
 </div>
