@@ -25,9 +25,6 @@ use Illuminate\Support\Facades\Route;
 // admin page
 //
 // banner crud show or hide
-// profit
-// user who buy the most
-// product most sell
 // product less sell
 // filter product by date
 

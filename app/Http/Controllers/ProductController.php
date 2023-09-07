@@ -52,7 +52,8 @@ class ProductController extends Controller
         $category_id = $product->category_id;
         $id = $product->id;
         // dd($id);
-        $related = DB::select('select * from products where category_id = :category_id and id !=:id', [$category_id, $id]);
+        $related = Product::where('category_id', $category_id)->whereNot('id', $id)->limit(10)->get();
+        // $related = DB::select('select * from products where category_id = :category_id and id !=:id', [$category_id, $id]);
         // dd($related);
         return view('user.category.show', compact('product', 'related'));
     }
