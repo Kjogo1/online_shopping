@@ -19,6 +19,11 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $start = '2023-09-06';
+        $products = Product::whereDate('created_at', $start)->get();
+
+        dd($products);
+
         $products = Product::orderBy('id', 'DESC')->get();
         return view('admin.product.index', ['products' => $products]);
     }
