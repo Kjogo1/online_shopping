@@ -224,4 +224,56 @@ class ProductController extends Controller
         $request->session()->forget('cart');
         return redirect()->route('product.shopping.cart')->with('success', 'Your Product has been order');
     }
+
+    public function orderNow(Request $request) {
+        // $id = $request->segment();
+        $request->validate([
+            'product_id' => 'required|numeric',
+            'quantity' => 'required|numeric'
+        ]);
+        // dd($request);
+        $id = $request->product_id;
+        $quantity = $request->quantity;
+        return view('user.product.order-checkout', ['id' => $id, 'quantity' => $quantity]);
+    }
+
+    public function orderType(Request $request) {
+        $request->validate([
+            'product_id' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'payment_type' => 'required'
+        ]);
+
+        $product = Product::findOrFail($request->product_id);
+
+        if ($request->payment_type === 'Cash') {
+            return view('user.product.payment-type.order-cash', ['quantity' => $request->quantity, 'product' => $product]);
+        } else {
+            return view('user.product.payment-type.order-paypal', ['quantity' => $request->quantity, 'product' => $product]);
+        }
+    }
+
+    public function orderCash(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'product_id' => 'required',
+            'quantity' => 'required|numeric',
+            'price' => 'required|numeric',
+            'payment_type' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->route('product.shopping.cart')->withErrors('error', 'Something went wrong.');
+        }
+
+        auth()->user()->orderProduct()->create([
+            'product_id' => $request->product_id,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'payment_type' => $request->payment_type,
+            'payment_id' => Str::uuid(),
+        ]);
+
+        return redirect()->route('product.shopping.cart')->with('success', 'Your Product has been order');
+    }
 }

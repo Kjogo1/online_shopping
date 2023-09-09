@@ -13,4 +13,9 @@ class HomeController extends Controller
         // dd($banner);
         return view('welcome', ['banner' => $banner]);
     }
+
+    public function about() {
+        // dd($banner);
+        return view('user.aboutus');
+    }
 }

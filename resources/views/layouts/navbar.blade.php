@@ -1,6 +1,6 @@
 <nav class="bg-white border-gray-200 dark:bg-gray-800">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="flex items-center">
+        <a class="flex items-center">
             <img src="{{ asset('assets/image/icon.png') }}" class="mr-2">
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Online Shop</span>
         </a>
@@ -23,8 +23,9 @@
                         Home</a>
                 </li>
                 <li class="dark:bg-gray-800">
-                    <a href="#"
-                        class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                    <a href="{{route('about')}}"
+                    class="{{ request()->routeIs('about') ? 'block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500' : 'block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent' }} ">
+                    About</a>
                 </li>
                 {{-- <li class="dark:bg-gray-800">
                     <a href="#"
@@ -74,7 +75,7 @@
                             </x-dropdown-link>
 
                             @role('admin')
-                                <x-dropdown-link :href="route('admin.index')">
+                                <x-dropdown-link :href="route('admin.dashboard.index')">
                                     {{ __('Admin') }}
                                 </x-dropdown-link>
                             @endrole

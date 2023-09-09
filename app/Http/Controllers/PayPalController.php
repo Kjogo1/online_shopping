@@ -123,8 +123,8 @@ class PayPalController extends Controller
 
             if ($response->isSuccessful()) {
                 $product_id = $request->session()->get('temp');
-                $quantity = $request->session()->get('temp_price');
-                $price = $request->session()->get('temp_quantity');
+                $quantity = $request->session()->get('temp_quantity');
+                $price = $request->session()->get('temp_price');
 
                 auth()->user()->orderProduct()->create([
                     'product_id' => $product_id,
@@ -144,6 +144,9 @@ class PayPalController extends Controller
                         $totalQty = $cart->totalQty - $cart->items[$key]['qty'];
                         $cart->updateItem($totalQty, $totalPrice);
                         unset($cart->items[$key]); // retrieving the value and remove it from the array
+                        if($cart->totalQty === 0) {
+                            $request->session()->forget('cart');
+                        }
                         break;
                     }
                 }
@@ -163,6 +166,70 @@ class PayPalController extends Controller
 
     public function singleError()
     {
-        return 'User decline';
+        return 'Payment decline';
+    }
+
+
+    public function orderPaypal(Request $request)
+    {
+        $request->session()->put('temp', $request->product_id);
+        $request->session()->put('temp_price', $request->price);
+        $request->session()->put('temp_quantity', $request->quantity);
+
+        try {
+            $response = $this->gateway->purchase(array(
+                'amount' => $request->price,
+                'currency' => env('PAYPAL_CURRENCY'),
+                'returnUrl' => url('order-success'),
+                'cancelUrl' => url('error'),
+                // 'product_id' => $request->product_id, 'quantity' => $request->quantity, 'price' => $request->price
+            ))->send();
+
+            if ($response->isRedirect()) {
+                $response->redirect();
+            } else {
+                return $response->getMessage();
+            }
+        } catch (Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function orderSuccess(Request $request)
+    {
+        // if(!$request->session()->has('cart')) {
+        //     return redirect()->route('product.shopping.cart');
+        // }
+        if ($request->input('paymentId') && $request->input('PayerID')) {
+            $transaction = $this->gateway->completePurchase(array(
+                'payer_id' => $request->input('PayerID'),
+                'transactionReference' => $request->input('paymentId'),
+            ));
+
+            $response = $transaction->send();
+
+            if ($response->isSuccessful()) {
+                $product_id = $request->session()->get('temp');
+                $quantity = $request->session()->get('temp_quantity');
+                $price = $request->session()->get('temp_price');
+
+                auth()->user()->orderProduct()->create([
+                    'product_id' => $product_id,
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'payment_type' => 'PayPal',
+                    'payment_id' => $request->input('paymentId'),
+                ]);
+
+                $request->session()->forget('temp');
+                $request->session()->forget('temp_price');
+                $request->session()->forget('temp_quantity');
+
+                // return "Payment Successful";
+                return redirect()->route('product.shopping.cart')->with('success', 'Your Product has been order');
+            } else {
+                return $response->getMessage();
+            }
+        }
     }
 }

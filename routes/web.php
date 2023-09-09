@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 // user
 Route::get('/', [HomeController::class, 'welcome'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::get('/product/history-order', [HistoryOrderController::class, 'index'])->name('product.history.order');
 
@@ -41,13 +42,19 @@ Route::get('/product/cart/{product}', [ControllersProductController::class, 'add
 Route::post('/product/checkout/checkout-type', [ControllersProductController::class, 'checkoutType'])->name('product.checkout.type')->middleware(['auth', 'role:user']);
 Route::post('/product/checkout/cash', [ControllersProductController::class, 'cashSingleProduct'])->name('product.checkout.single.cash')->middleware(['auth', 'role:user']);
 Route::post('/product/checkout/cashProduct', [ControllersProductController::class, 'cashProduct'])->name('product.checkout.cash')->middleware(['auth', 'role:user']);
+Route::post('/product/checkout/order', [ControllersProductController::class, 'orderType'])->name('product.checkout.order')->middleware(['auth', 'role:user']);
+Route::post('/product/order', [ControllersProductController::class, 'orderNow'])->name('product.order')->middleware(['auth', 'role:user']);
+Route::post('/product/order/cash', [ControllersProductController::class, 'orderCash'])->name('product.order.cash')->middleware(['auth', 'role:user']);
+
 
 Route::get('/success', [PayPalController::class, 'success'])->middleware(['auth', 'role:user']);
 Route::get('/error', [PayPalController::class, 'error'])->middleware(['auth', 'role:user']);
 Route::get('/single-success', [PayPalController::class, 'singleSuccess'])->middleware(['auth', 'role:user']);
 Route::get('/single-error', [PayPalController::class, 'singleError'])->middleware(['auth', 'role:user']);
+Route::get('/order-success', [PayPalController::class, 'orderSuccess'])->middleware(['auth', 'role:user']);
 Route::post('/product/checkout/paypalProduct', [PayPalController::class, 'pay'])->name('product.checkout.paypal')->middleware(['auth', 'role:user']);
 Route::post('/product/checkout/paypal', [PayPalController::class, 'paySingle'])->name('product.checkout.single.paypal')->middleware(['auth', 'role:user']);
+Route::post('/product/order/paypal', [PayPalController::class, 'orderPaypal'])->name('product.order.paypal')->middleware(['auth', 'role:user']);
 
 Route::get('product/category/{category}', [ControllersCategoryController::class, 'index'])->name('category.index');
 
@@ -57,11 +64,14 @@ Route::get('product/category/{category}', [ControllersCategoryController::class,
 
 
 Route::middleware(['auth', 'verified', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard.index');
+    Route::get('/invoice', [AdminController::class, 'invoiceIndex'])->name('invoice.index');
+    Route::get('/invoice/dateTime', [AdminController::class, 'queryByDate'])->name('invoice.date');
+    // Route::get('/product/dateTime', [ProductController::class, 'queryByDate'])->name('product.dateTime');
     Route::resource('/product', ProductController::class);
 
     // dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // banner
     Route::resource('/banner', BannerController::class);
