@@ -87,7 +87,8 @@ class AdminController extends Controller
         products.startup_price,
         order_products.quantity,
         order_products.created_at,
-        order_products.price
+        order_products.price,
+        users.name AS username
         FROM products INNER JOIN order_products ON order_products.product_id = products.id
          INNER JOIN users ON users.id = order_products.user_id
          INNER JOIN categories ON products.category_id = categories.id
